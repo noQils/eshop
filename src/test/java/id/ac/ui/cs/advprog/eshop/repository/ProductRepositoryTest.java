@@ -65,21 +65,27 @@ class ProductRepositoryTest {
 
     @Test
     void testEditProduct() {
+        // create initial product
         Product product = new Product();
         product.setProductName("Sampo Cap Bambang");
         product.setProductQuantity(100);
         productRepository.create(product);
-
         String productId = product.getProductId();
+
+        // create updated product with same ID
         Product updatedProduct = new Product();
         updatedProduct.setProductName("Sampo Cap Bango");
         updatedProduct.setProductQuantity(200);
 
+        // perform update
         Product result = productRepository.edit(productId, updatedProduct);
+
+        // verify update
         assertNotNull(result);
         assertEquals(updatedProduct.getProductName(), result.getProductName());
         assertEquals(updatedProduct.getProductQuantity(), result.getProductQuantity());
 
+        // verify through findAll
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
         Product savedProduct = productIterator.next();
@@ -95,5 +101,39 @@ class ProductRepositoryTest {
 
         Product result = productRepository.edit("non-existent-id", updatedProduct);
         assertNull(result);
+    }
+
+    @Test
+    void testDeleteProduct() {
+        // create a product
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        // verify product exists
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertTrue(productIterator.hasNext());
+
+        // delete the product
+        Product deletedProduct = productRepository.delete(product.getProductId());
+        assertEquals(product.getProductId(), deletedProduct.getProductId());
+
+        // verify product no longer exists
+        productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testDeleteNonExistentProduct() {
+        // delete non-existent product
+        Product deletedProduct = productRepository.delete("non-existent-id");
+
+        // verify no products deleted
+        assertNull(deletedProduct);
+
+        // verify no products exist
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
     }
 }
