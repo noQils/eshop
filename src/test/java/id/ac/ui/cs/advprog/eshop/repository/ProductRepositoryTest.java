@@ -74,7 +74,7 @@ class ProductRepositoryTest {
 
         // create updated product with same ID
         Product updatedProduct = new Product();
-        updatedProduct.setProductName("Sampo Cap Bango");
+        updatedProduct.setProductName("Sampo Cap Asep");
         updatedProduct.setProductQuantity(200);
 
         // perform update
@@ -99,7 +99,7 @@ class ProductRepositoryTest {
         updatedProduct.setProductName("Updated Product");
         updatedProduct.setProductQuantity(100);
 
-        Product result = productRepository.edit("non-existent-id", updatedProduct);
+        Product result = productRepository.edit("hello-world", updatedProduct);
         assertNull(result);
     }
 
@@ -127,7 +127,7 @@ class ProductRepositoryTest {
     @Test
     void testDeleteNonExistentProduct() {
         // delete non-existent product
-        Product deletedProduct = productRepository.delete("non-existent-id");
+        Product deletedProduct = productRepository.delete("hello-world");
 
         // verify no products deleted
         assertNull(deletedProduct);
