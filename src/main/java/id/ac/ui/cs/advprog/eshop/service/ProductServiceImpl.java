@@ -37,9 +37,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product edit(String productId, Product updatedProduct) {
         Product existingProduct = productRepository.findById(productId);
-        if (existingProduct == null) {
-            throw new RuntimeException("Product not found with ID: " + productId);
-        }
         return productRepository.edit(productId, updatedProduct);
     }
 
