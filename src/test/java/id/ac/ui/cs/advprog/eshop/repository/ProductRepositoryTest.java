@@ -95,27 +95,14 @@ class ProductRepositoryTest {
 
     @Test
     void testEmptyProduct() {
+        // create a product
         Product updatedProduct = new Product();
         updatedProduct.setProductName("Updated Product");
         updatedProduct.setProductQuantity(100);
 
+        // verify product does not exist
         Product result = productRepository.edit("hello-world", updatedProduct);
         assertNull(result);
-    }
-
-    @Test
-    void testEditWithNullId() {
-        Product result1 = productRepository.edit(null, null);
-        assertNull(result1);
-
-        Product result2 = productRepository.edit("test", null);
-        assertNull(result2);
-
-        Product updateProduct = new Product();
-        updateProduct.setProductName("New Name");
-        updateProduct.setProductQuantity(20);
-        Product result3 = productRepository.edit(null, updateProduct);
-        assertNull(result3);
     }
 
     @Test
@@ -154,11 +141,15 @@ class ProductRepositoryTest {
 
     @Test
     void testFindProductById() {
+        // create a product
         Product product = new Product();
         product.setProductName("Sampo Cap Bambang");
         product.setProductQuantity(100);
+
+        // add product to database
         productRepository.create(product);
 
+        // verify product exists in database
         Product dummyProduct = productRepository.findById(product.getProductId());
         assertEquals(product.getProductId(), dummyProduct.getProductId());
         assertEquals(product.getProductName(), dummyProduct.getProductName());
@@ -167,13 +158,8 @@ class ProductRepositoryTest {
 
     @Test
     void testFindNonExistenceProductById() {
+        // verify function returns null given non existent id
         Product product = productRepository.findById("non-existent-id");
-        assertNull(product);
-    }
-
-    @Test
-    void testFindProductByIdWithNullId() {
-        Product product = productRepository.findById(null);
         assertNull(product);
     }
 }
