@@ -111,9 +111,6 @@ class ProductServiceImplTest {
         updatedProduct.setProductName("New Laptop");
         updatedProduct.setProductQuantity(5);
 
-        // findById should return the existing product
-        when(productRepository.findById(productId)).thenReturn(existingProduct);
-
         // edit should return the updated product
         when(productRepository.edit(productId, updatedProduct)).thenReturn(updatedProduct);
 
@@ -154,7 +151,7 @@ class ProductServiceImplTest {
         deletedProduct.setProductName("Laptop");
         deletedProduct.setProductQuantity(10);
 
-//        // delete should return the deleted product
+        // delete should return the deleted product
         when(productRepository.delete(productId)).thenReturn(deletedProduct);
 
         // call the method
