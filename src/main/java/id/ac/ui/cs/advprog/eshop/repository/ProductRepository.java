@@ -22,9 +22,6 @@ public class ProductRepository {
     }
 
     public Product findById(String productId) {
-        if (productId == null) {
-            return null;
-        }
         return productData.stream()
                 .filter(Objects::nonNull) // ignore null elements in the list
                 .filter(product -> productId.equals(product.getProductId()))
@@ -33,9 +30,6 @@ public class ProductRepository {
     }
 
     public Product edit(String productId, Product updatedProduct) {
-        if (productId == null || updatedProduct == null) {
-            return null;
-        }
         return productData.stream()
                 .filter(Objects::nonNull) // Ignore null elements in the list
                 .filter(product -> productId.equals(product.getProductId()))
@@ -49,17 +43,13 @@ public class ProductRepository {
     }
 
     public Product delete(String productId) {
-        if (productId == null) {
-            return null;
-        }
-        Iterator<Product> iterator = productData.iterator();
-        while (iterator.hasNext()) {
-            Product product = iterator.next();
-            if (productId.equals(product.getProductId())) {
-                iterator.remove();
-                return product;
-            }
-        }
-        return null;
+        return productData.stream()
+                .filter(product -> product.getProductId().equals(productId))
+                .findFirst()
+                .map(product -> {
+                    productData.remove(product);
+                    return product;
+                })
+                .orElse(null);
     }
 }
