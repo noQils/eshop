@@ -22,6 +22,7 @@ class ProductControllerTest {
     ProductController productController;
     @BeforeEach
     void setUp() {
+        // This method is kept for maintainability, could be useful for future needs
     }
 
     @Test
