@@ -161,4 +161,47 @@ class ProductRepositoryTest {
         Product product = productRepository.findById(null);
         assertNull(product);
     }
+
+    @Test
+    void testEditExistingProduct() {
+        Product product = new Product();
+        product.setProductId("123");
+        product.setProductName("Old Name");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName("New Name");
+        updatedProduct.setProductQuantity(20);
+
+        Product result = productRepository.edit("123", updatedProduct);
+        assertNotNull(result);
+        assertEquals("New Name", result.getProductName());
+        assertEquals(20, result.getProductQuantity());
+    }
+
+    @Test
+    void testEditNonExistentProduct() {
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName("New Name");
+        updatedProduct.setProductQuantity(20);
+
+        Product result = productRepository.edit("non-existent-id", updatedProduct);
+        assertNull(result);
+    }
+
+    @Test
+    void testEditWithNullId() {
+        Product result1 = productRepository.edit(null, null);
+        assertNull(result1);
+
+        Product result2 = productRepository.edit("test", null);
+        assertNull(result2);
+
+        Product updateProduct = new Product();
+        updateProduct.setProductName("New Name");
+        updateProduct.setProductQuantity(20);
+        Product result3 = productRepository.edit(null, updateProduct);
+        assertNull(result3);
+    }
 }
