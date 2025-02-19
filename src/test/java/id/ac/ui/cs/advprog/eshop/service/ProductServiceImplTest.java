@@ -171,6 +171,7 @@ class ProductServiceImplTest {
     @Test
     void testDeleteProductNotExist() {
         Product result = productServiceImpl.delete("testing-product-id");
+
         // verify product does not exist
         assertNull(result);
     }
