@@ -19,6 +19,15 @@ java {
 	}
 }
 
+sonar {
+	properties {
+		property("sonar.projectKey", "noQils_eshop")
+		property("sonar.organization", "noqils")
+		property("sonar.host.url", "https://sonarcloud.io")
+		property("sonar.token", System.getenv("SONAR_TOKEN"))
+	}
+}
+
 configurations {
 	compileOnly {
 		extendsFrom(configurations.annotationProcessor.get())
