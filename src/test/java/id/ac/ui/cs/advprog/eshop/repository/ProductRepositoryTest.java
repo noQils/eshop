@@ -136,4 +136,23 @@ class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testFindProductById() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product dummyProduct = productRepository.findById(product.getProductId());
+        assertEquals(product.getProductId(), dummyProduct.getProductId());
+        assertEquals(product.getProductName(), dummyProduct.getProductName());
+        assertEquals(product.getProductQuantity(), dummyProduct.getProductQuantity());
+    }
+
+    @Test
+    void testFindNonExistenceProductById() {
+        Product product = productRepository.findById("non-existent-id");
+        assertNull(product);
+    }
 }
