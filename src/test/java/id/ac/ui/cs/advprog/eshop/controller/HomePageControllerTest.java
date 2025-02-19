@@ -14,6 +14,7 @@ class HomePageControllerTest {
     HomePageController homePageController;
     @BeforeEach
     void setUp() {
+        // This method is kept for maintainability, could be useful for future needs
     }
 
     @Test
