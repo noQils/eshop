@@ -155,4 +155,10 @@ class ProductRepositoryTest {
         Product product = productRepository.findById("non-existent-id");
         assertNull(product);
     }
+
+    @Test
+    void testFindProductByIdWithNullId() {
+        Product product = productRepository.findById(null);
+        assertNull(product);
+    }
 }
