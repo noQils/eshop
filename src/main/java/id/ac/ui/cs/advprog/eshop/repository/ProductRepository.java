@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
+import java.util.Objects;
 
 @Repository
 public class ProductRepository {
@@ -21,12 +22,14 @@ public class ProductRepository {
     }
 
     public Product findById(String productId) {
-        for (Product product : productData) {
-            if (product.getProductId().equals(productId)) {
-                return product;
-            }
+        if (productId == null) {
+            return null;
         }
-        return null;
+        return productData.stream()
+                .filter(Objects::nonNull) // ignore null elements in the list
+                .filter(product -> productId.equals(product.getProductId()))
+                .findFirst()
+                .orElse(null);
     }
 
     public Product edit(String productId, Product updatedProduct) {
