@@ -19,7 +19,7 @@ class EshopAppTest {
     }
 
     @Test
-    void testMainMethodStarts() {
+    void mainMethodStartsSuccessfully() {
         String[] args = {};
         EshopApplication.main(args);
         assertTrue(true);
