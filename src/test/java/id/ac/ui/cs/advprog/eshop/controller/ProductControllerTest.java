@@ -12,11 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
 
-import java.util.Iterator;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductControllerTest {
@@ -49,7 +45,7 @@ class ProductControllerTest {
         // call the method
         String result = productController.createProductPost(product);
 
-        // verify expected view name
+        // verify expected URL
         assertEquals("redirect:list", result);
     }
 
@@ -103,7 +99,15 @@ class ProductControllerTest {
         // call method
         String result = productController.editProductPost(existingProduct.getProductId(), updatedProduct);
 
-        // verify expected view name
+        // verify expected URL
+        assertEquals("redirect:/product/list", result);
+    }
+
+    @Test
+    void testDeleteProduct() {
+        String result = productController.deleteProduct("eb558e9f-1c59-460e-8860-71af6af638i2");
+
+        // verify expected URL
         assertEquals("redirect:/product/list", result);
     }
 }
