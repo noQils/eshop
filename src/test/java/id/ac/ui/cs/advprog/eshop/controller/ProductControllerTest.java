@@ -34,7 +34,7 @@ class ProductControllerTest {
     void testCreateProductPage() {
         String viewName = productController.createProductPage(model);
 
-        // verify product page opened
+        // verify expected view name
         assertEquals("createProduct", viewName);
     }
 
@@ -49,7 +49,7 @@ class ProductControllerTest {
         // call the method
         String result = productController.createProductPost(product);
 
-        // verify page redirected to list page
+        // verify expected view name
         assertEquals("redirect:list", result);
     }
 
@@ -68,7 +68,42 @@ class ProductControllerTest {
         // call the method
         String result = productController.productListPage(model);
 
-        // verify list page opened
+        // verify expected view name
         assertEquals("productList", result);
+    }
+
+    @Test
+    void testEditProductPage() {
+        // create a product
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c59-460e-8860-71af6af63h88");
+        product.setProductName("Laptop");
+        product.setProductQuantity(5);
+
+        // call the method
+        String result = productController.editProductPage(product.getProductId(), model);
+
+        // verify expected view name
+        assertEquals("editProduct", result);
+    }
+
+    @Test
+    void testEditProductPost() {
+        // create products
+        String productId = "eb558e9f-1c59-460e-8860-71af6af63gg3";
+        Product existingProduct = new Product();
+        existingProduct.setProductId(productId);
+        existingProduct.setProductName("Old Laptop");
+        existingProduct.setProductQuantity(10);
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId(productId);
+        updatedProduct.setProductName("New Laptop");
+        updatedProduct.setProductQuantity(5);
+
+        // call method
+        String result = productController.editProductPost(existingProduct.getProductId(), updatedProduct);
+
+        // verify expected view name
+        assertEquals("redirect:/product/list", result);
     }
 }
