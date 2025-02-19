@@ -127,4 +127,22 @@ class ProductServiceImplTest {
         assertEquals(updatedProduct.getProductName(), result.getProductName());
         assertEquals(updatedProduct.getProductQuantity(), result.getProductQuantity());
     }
+
+    @Test
+    void testEdit_ProductNotFound() {
+        String productId = "eb558e9f-1c59-460e-8860-71af6af63k82";
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId(productId);
+        updatedProduct.setProductName("New Laptop");
+        updatedProduct.setProductQuantity(5);
+
+        // findById should return null (product not found)
+//        when(productRepository.findById(productId)).thenReturn(null);
+
+        // call the method
+        Product result = productServiceImpl.edit(productId, updatedProduct);
+
+        // verify method returns null (product does not exist)
+        assertNull(result);
+    }
 }
