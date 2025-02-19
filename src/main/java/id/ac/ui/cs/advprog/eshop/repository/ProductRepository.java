@@ -33,14 +33,19 @@ public class ProductRepository {
     }
 
     public Product edit(String productId, Product updatedProduct) {
-        for (Product product : productData) {
-            if (product.getProductId().equals(productId)) {
-                product.setProductName(updatedProduct.getProductName());
-                product.setProductQuantity(updatedProduct.getProductQuantity());
-                return product;
-            }
+        if (productId == null || updatedProduct == null) {
+            return null;
         }
-        return null;
+        return productData.stream()
+                .filter(Objects::nonNull) // Ignore null elements in the list
+                .filter(product -> productId.equals(product.getProductId()))
+                .findFirst()
+                .map(product -> {
+                    product.setProductName(updatedProduct.getProductName());
+                    product.setProductQuantity(updatedProduct.getProductQuantity());
+                    return product;
+                })
+                .orElse(null);
     }
 
     public Product delete(String productId) {
