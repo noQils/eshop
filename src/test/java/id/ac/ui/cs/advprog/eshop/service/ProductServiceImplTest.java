@@ -129,20 +129,49 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testEdit_ProductNotFound() {
+    void testEditProductNotFound() {
         String productId = "eb558e9f-1c59-460e-8860-71af6af63k82";
+
+        // create a product
         Product updatedProduct = new Product();
         updatedProduct.setProductId(productId);
         updatedProduct.setProductName("New Laptop");
         updatedProduct.setProductQuantity(5);
 
-        // findById should return null (product not found)
-//        when(productRepository.findById(productId)).thenReturn(null);
-
         // call the method
         Product result = productServiceImpl.edit(productId, updatedProduct);
 
         // verify method returns null (product does not exist)
+        assertNull(result);
+    }
+
+    @Test
+    void testDeleteProductExists() {
+        String productId = "eb558e9f-1c59-460e-8860-71af6af63g45";
+
+        // create a product
+        Product deletedProduct = new Product();
+        deletedProduct.setProductId(productId);
+        deletedProduct.setProductName("Laptop");
+        deletedProduct.setProductQuantity(10);
+
+//        // delete should return the deleted product
+        when(productRepository.delete(productId)).thenReturn(deletedProduct);
+
+        // call the method
+        Product result = productServiceImpl.delete(productId);
+
+        // verify product is deleted
+        assertNotNull(result);
+        assertEquals(deletedProduct.getProductId(), result.getProductId());
+        assertEquals(deletedProduct.getProductName(), result.getProductName());
+        assertEquals(deletedProduct.getProductQuantity(), result.getProductQuantity());
+    }
+
+    @Test
+    void testDeleteProductNotExist() {
+        Product result = productServiceImpl.delete("testing-product-id");
+        // verify product does not exist
         assertNull(result);
     }
 }
