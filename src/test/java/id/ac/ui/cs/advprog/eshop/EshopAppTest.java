@@ -8,7 +8,7 @@ class EshopAppTest {
 
     @Test
     void contextLoads() {
-        // This test method is intentionally left empty.  It serves as a basic smoke test
+        // This test method is intentionally left empty. It serves as a basic smoke test
         // to ensure that the Spring context loads successfully. This can help detect
         // misconfigurations in the Spring setup. If the context fails to load, this
         // test will fail, indicating a problem with the application's configuration.
