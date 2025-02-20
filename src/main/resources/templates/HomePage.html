@@ -2,9 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ADV Shop</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* Welcome Container */
+    .welcome-container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 50px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    /* Heading */
+    h3 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: slideIn 1.5s ease-in-out;
+    }
+
+    /* Paragraph */
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      animation: slideIn 2s ease-in-out;
+    }
+
+    /* Button */
+    .btn {
+      display: inline-block;
+      padding: 15px 30px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #ff6f61;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #ff3b2f;
+      transform: scale(1.1);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Background Animation */
+    body::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 10%, transparent 10.01%);
+      background-size: 20px 20px;
+      animation: moveBackground 10s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes moveBackground {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-<h3>Welcome</h3>
+<div class="welcome-container">
+  <h3>Welcome</h3>
+  <p>Explore our amazing products and services tailored just for you!</p>
+  <a href="#" class="btn">Get Started</a>
+</div>
 </body>
 </html>
