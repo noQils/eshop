@@ -25,6 +25,7 @@ sonar {
 		property("sonar.organization", "noqils")
 		property("sonar.host.url", "https://sonarcloud.io")
 		property("sonar.token", System.getenv("SONAR_TOKEN"))
+		property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
 	}
 }
 
