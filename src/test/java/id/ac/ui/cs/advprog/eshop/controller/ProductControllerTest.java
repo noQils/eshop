@@ -30,7 +30,7 @@ class ProductControllerTest {
         String viewName = productController.createProductPage(model);
 
         // verify expected view name
-        assertEquals("createProduct", viewName);
+        assertEquals("CreateProduct", viewName);
     }
 
     @Test
@@ -64,7 +64,7 @@ class ProductControllerTest {
         String result = productController.productListPage(model);
 
         // verify expected view name
-        assertEquals("productList", result);
+        assertEquals("ProductList", result);
     }
 
     @Test
@@ -79,7 +79,7 @@ class ProductControllerTest {
         String result = productController.editProductPage(product.getProductId(), model);
 
         // verify expected view name
-        assertEquals("editProduct", result);
+        assertEquals("EditProduct", result);
     }
 
     @Test
