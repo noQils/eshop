@@ -3,7 +3,7 @@ name: Deploy to Koyeb
 on:
   push:
     branches:
-      - main  # Change this if you're using a different branch for deployment
+      - main
 
 jobs:
   deploy:
