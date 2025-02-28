@@ -20,11 +20,11 @@
     </thead>
     <tbody>
     <tr th:each="product: ${products}">
-      <td th:text="${product.productName}"></td>
-      <td th:text="${product.productQuantity}"></td>
+      <td th:text="${product.name}"></td>
+      <td th:text="${product.quantity}"></td>
       <td>
-        <a th:href="@{/product/edit/{productId}(productId=${product.productId})}" class="btn btn-warning btn-sm">Edit</a>
-        <a th:href="@{/product/delete/{productId}(productId=${product.productId})}" class="btn btn-danger btn-sm">Delete</a>
+        <a th:href="@{/product/edit/{productId}(productId=${product.id})}" class="btn btn-warning btn-sm">Edit</a>
+        <a th:href="@{/product/delete/{productId}(productId=${product.id})}" class="btn btn-danger btn-sm">Delete</a>
       </td>
     </tr>
     </tbody>
