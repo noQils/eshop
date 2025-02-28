@@ -15,8 +15,8 @@ public abstract class AbstractController<T> {
     protected final String objectsAttribute;
     protected final String redirectList;
 
-    public AbstractController(ObjectGetService<T> service, ObjectPostService<T> postService, String createView, String listView, String editView, String objectAttribute, String objectsAttribute, String redirectList) {
-        this.getService = service;
+    protected AbstractController(ObjectGetService<T> getService, ObjectPostService<T> postService, String createView, String listView, String editView, String objectAttribute, String objectsAttribute, String redirectList) {
+        this.getService = getService;
         this.postService = postService;
         this.createView = createView;
         this.listView = listView;
