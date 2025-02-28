@@ -5,5 +5,5 @@ import lombok.Setter;
 
 @Getter @Setter
 public class Car extends CoreModel {
-    private String carColor;
+    private String color;
 }

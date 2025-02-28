@@ -18,7 +18,7 @@ public class CarRepository extends AbstractRepository<Car> {
     @Override
     protected void edit(Car existingCar, Car updatedCar) {
         existingCar.setName(updatedCar.getName());
-        existingCar.setCarColor(updatedCar.getCarColor());
+        existingCar.setColor(updatedCar.getColor());
         existingCar.setQuantity(updatedCar.getQuantity());
     }
 }
