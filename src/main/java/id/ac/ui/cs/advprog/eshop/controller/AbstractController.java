@@ -11,22 +11,18 @@ public abstract class AbstractController<T> {
     protected final String createView;
     protected final String listView;
     protected final String editView;
-    protected final String objectAttribute;
-    protected final String objectsAttribute;
     protected final String redirectList;
 
-    protected AbstractController(ObjectGetService<T> getService, ObjectPostService<T> postService, String createView, String listView, String editView, String objectAttribute, String objectsAttribute, String redirectList) {
+    protected AbstractController(ObjectGetService<T> getService, ObjectPostService<T> postService, String createView, String listView, String editView, String redirectList) {
         this.getService = getService;
         this.postService = postService;
         this.createView = createView;
         this.listView = listView;
         this.editView = editView;
-        this.objectAttribute = objectAttribute;
-        this.objectsAttribute = objectsAttribute;
         this.redirectList = redirectList;
     }
 
-    public String createPage(Model model) {
+    public String createPage(Model model, String objectAttribute) {
         model.addAttribute(objectAttribute, createNewInstance());
         return createView;
     }
@@ -36,13 +32,13 @@ public abstract class AbstractController<T> {
         return redirectList;
     }
 
-    public String listPage(Model model) {
+    public String listPage(Model model, String objectsAttribute) {
         List<T> allObjects = getService.findAll();
         model.addAttribute(objectsAttribute, allObjects);
         return listView;
     }
 
-    public String editPage(String id, Model model) {
+    public String editPage(String id, Model model, String objectAttribute) {
         T object = getService.findById(id);
         model.addAttribute(objectAttribute, object);
         return editView;

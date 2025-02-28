@@ -17,8 +17,6 @@ public class ProductController extends AbstractController<Product>{
                 "CreateProduct",
                 "ProductList",
                 "EditProduct",
-                "product",
-                "products",
                 "redirect:/product/list");
     }
 
@@ -29,7 +27,7 @@ public class ProductController extends AbstractController<Product>{
 
     @GetMapping("/create")
     public String createProductPage(Model model) {
-        return createPage(model);
+        return createPage(model, "product");
     }
 
     @PostMapping("/create")
@@ -39,12 +37,12 @@ public class ProductController extends AbstractController<Product>{
 
     @GetMapping("/list")
     public String productListPage(Model model) {
-        return listPage(model);
+        return listPage(model, "products");
     }
 
     @GetMapping("/edit/{productId}")
     public String editProductPage(@PathVariable String productId, Model model) {
-        return editPage(productId, model);
+        return editPage(productId, model, "product");
     }
 
     @PostMapping("/edit/{productId}")

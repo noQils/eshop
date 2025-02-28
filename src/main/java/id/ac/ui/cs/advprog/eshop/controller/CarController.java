@@ -17,8 +17,6 @@ public class CarController extends AbstractController<Car> {
                 "CreateCar",
                 "CarList",
                 "EditCar",
-                "car",
-                "cars",
                 "redirect:/car/listCar");
     }
 
@@ -29,7 +27,7 @@ public class CarController extends AbstractController<Car> {
 
     @GetMapping("/createCar")
     public String createCarPage(Model model) {
-        return createPage(model);
+        return createPage(model, "car");
     }
 
     @PostMapping("/createCar")
@@ -39,12 +37,12 @@ public class CarController extends AbstractController<Car> {
 
     @GetMapping("/listCar")
     public String carListPage(Model model) {
-        return listPage(model);
+        return listPage(model, "cars");
     }
 
     @GetMapping("/editCar/{carId}")
     public String editCarPage(@PathVariable String carId, Model model) {
-        return editPage(carId, model);
+        return editPage(carId, model, "car");
     }
 
     @PostMapping("/editCar/{carId}")
