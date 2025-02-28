@@ -33,7 +33,7 @@ public class CarController extends AbstractController<Car> {
     }
 
     @PostMapping("/createCar")
-    public String createCarPost(@ModelAttribute Car car, Model model) {
+    public String createCarPost(@ModelAttribute Car car) {
         return createPost(car);
     }
 
