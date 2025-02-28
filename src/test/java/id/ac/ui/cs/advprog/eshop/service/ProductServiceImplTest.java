@@ -30,62 +30,64 @@ class ProductServiceImplTest {
     void testCreateProduct() {
         // create a product
         Product product = new Product();
-        product.setProductId("eb558e9f-1c59-460e-8860-71af6af63b46");
-        product.setProductName("Eb558e9f");
-        product.setProductQuantity(100);
+        product.setId("eb558e9f-1c59-460e-8860-71af6af63b46");
+        product.setName("Eb558e9f");
+        product.setQuantity(100);
+
+        // make sure findAll() returns a non-null iterator
+        when(productRepository.create(product)).thenReturn(product);
 
         Product result = productServiceImpl.create(product);
 
         // verify product exists
         assertNotNull(result);
-        assertEquals("eb558e9f-1c59-460e-8860-71af6af63b46", result.getProductId());
-        assertEquals("Eb558e9f", result.getProductName());
-        assertEquals(100, result.getProductQuantity());
+        assertEquals("eb558e9f-1c59-460e-8860-71af6af63b46", result.getId());
+        assertEquals("Eb558e9f", result.getName());
+        assertEquals(100, result.getQuantity());
     }
 
     @Test
     void testFindAllProducts() {
         // create a product
         Product product1 = new Product();
-        product1.setProductId("eb558e9f-1c59-460e-8860-71af6af63b47");
-        product1.setProductName("Laptop");
-        product1.setProductQuantity(2);
+        product1.setId("eb558e9f-1c59-460e-8860-71af6af63b47");
+        product1.setName("Laptop");
+        product1.setQuantity(2);
 
         List<Product> productList = List.of(product1);
-        Iterator<Product> productIterator = productList.iterator();
 
         // make sure findAll() returns a non-null iterator
-        when(productRepository.findAll()).thenReturn(productIterator);
+        when(productRepository.findAll()).thenReturn(productList);
 
         // call findAll function
         List<Product> result = productServiceImpl.findAll();
 
         // verify created product exist
         assertNotNull(result);
-        assertEquals("eb558e9f-1c59-460e-8860-71af6af63b47", result.getFirst().getProductId());
-        assertEquals("Laptop", result.getFirst().getProductName());
-        assertEquals(2, result.getFirst().getProductQuantity());
+        assertEquals("eb558e9f-1c59-460e-8860-71af6af63b47", result.getFirst().getId());
+        assertEquals("Laptop", result.getFirst().getName());
+        assertEquals(2, result.getFirst().getQuantity());
     }
 
     @Test
     void testFindByIdProductExists() {
         // create a product
         Product product = new Product();
-        product.setProductId("eb558e9f-1c59-460e-8860-71af6af63g40");
-        product.setProductName("Kecap Cap Ayam");
-        product.setProductQuantity(9);
+        product.setId("eb558e9f-1c59-460e-8860-71af6af63g40");
+        product.setName("Kecap Cap Ayam");
+        product.setQuantity(9);
 
-        // when findById(product.getProductId()) is called, return product
-        when(productRepository.findById(product.getProductId())).thenReturn(product);
+        // when findById(product.getId()) is called, return product
+        when(productRepository.findById(product.getId())).thenReturn(product);
 
         // call the method
-        Product result = productServiceImpl.findById(product.getProductId());
+        Product result = productServiceImpl.findById(product.getId());
 
         // verify product exists
         assertNotNull(result);
-        assertEquals("eb558e9f-1c59-460e-8860-71af6af63g40", result.getProductId());
-        assertEquals("Kecap Cap Ayam", result.getProductName());
-        assertEquals(9, result.getProductQuantity());
+        assertEquals("eb558e9f-1c59-460e-8860-71af6af63g40", result.getId());
+        assertEquals("Kecap Cap Ayam", result.getName());
+        assertEquals(9, result.getQuantity());
     }
 
     @Test
@@ -104,13 +106,13 @@ class ProductServiceImplTest {
     void testEditProductExists() {
         String productId = "eb558e9f-1c59-460e-8860-71af6af63g45";
         Product existingProduct = new Product();
-        existingProduct.setProductId(productId);
-        existingProduct.setProductName("Old Laptop");
-        existingProduct.setProductQuantity(10);
+        existingProduct.setId(productId);
+        existingProduct.setName("Old Laptop");
+        existingProduct.setQuantity(10);
         Product updatedProduct = new Product();
-        updatedProduct.setProductId(productId);
-        updatedProduct.setProductName("New Laptop");
-        updatedProduct.setProductQuantity(5);
+        updatedProduct.setId(productId);
+        updatedProduct.setName("New Laptop");
+        updatedProduct.setQuantity(5);
 
         // edit should return the updated product
         when(productRepository.edit(productId, updatedProduct)).thenReturn(updatedProduct);
@@ -120,9 +122,9 @@ class ProductServiceImplTest {
 
         // verify the product is updated
         assertNotNull(result);
-        assertEquals(updatedProduct.getProductId(), result.getProductId());
-        assertEquals(updatedProduct.getProductName(), result.getProductName());
-        assertEquals(updatedProduct.getProductQuantity(), result.getProductQuantity());
+        assertEquals(updatedProduct.getId(), result.getId());
+        assertEquals(updatedProduct.getName(), result.getName());
+        assertEquals(updatedProduct.getQuantity(), result.getQuantity());
     }
 
     @Test
@@ -131,9 +133,9 @@ class ProductServiceImplTest {
 
         // create a product
         Product updatedProduct = new Product();
-        updatedProduct.setProductId(productId);
-        updatedProduct.setProductName("New Laptop");
-        updatedProduct.setProductQuantity(5);
+        updatedProduct.setId(productId);
+        updatedProduct.setName("New Laptop");
+        updatedProduct.setQuantity(5);
 
         // call the method
         Product result = productServiceImpl.edit(productId, updatedProduct);
@@ -148,9 +150,9 @@ class ProductServiceImplTest {
 
         // create a product
         Product deletedProduct = new Product();
-        deletedProduct.setProductId(productId);
-        deletedProduct.setProductName("Laptop");
-        deletedProduct.setProductQuantity(10);
+        deletedProduct.setId(productId);
+        deletedProduct.setName("Laptop");
+        deletedProduct.setQuantity(10);
 
         // delete should return the deleted product
         when(productRepository.delete(productId)).thenReturn(deletedProduct);
@@ -160,9 +162,9 @@ class ProductServiceImplTest {
 
         // verify product is deleted
         assertNotNull(result);
-        assertEquals(deletedProduct.getProductId(), result.getProductId());
-        assertEquals(deletedProduct.getProductName(), result.getProductName());
-        assertEquals(deletedProduct.getProductQuantity(), result.getProductQuantity());
+        assertEquals(deletedProduct.getId(), result.getId());
+        assertEquals(deletedProduct.getName(), result.getName());
+        assertEquals(deletedProduct.getQuantity(), result.getQuantity());
     }
 
     @Test

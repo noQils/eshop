@@ -44,9 +44,6 @@ public abstract class AbstractController<T> {
 
     public String editPage(String id, Model model) {
         T object = getService.findById(id);
-        if (object == null) {
-            return listView;
-        }
         model.addAttribute(objectAttribute, object);
         return editView;
     }

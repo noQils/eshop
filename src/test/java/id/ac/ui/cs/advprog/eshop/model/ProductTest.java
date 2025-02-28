@@ -9,22 +9,22 @@ class ProductTest {
     @BeforeEach
     void setUp() {
         this.product = new Product();
-        this.product.setProductId("eb558e9f-1c39-460e-B860-71af6af65bd6");
-        this.product.setProductName("Sampo Cap Bambang");
-        this.product.setProductQuantity(100);
+        this.product.setId("eb558e9f-1c39-460e-B860-71af6af65bd6");
+        this.product.setName("Sampo Cap Bambang");
+        this.product.setQuantity(100);
     }
     @Test
     void testGetProductId() {
-        assertEquals("eb558e9f-1c39-460e-B860-71af6af65bd6", this.product.getProductId());
+        assertEquals("eb558e9f-1c39-460e-B860-71af6af65bd6", this.product.getId());
     }
 
     @Test
     void testGetProductName() {
-        assertEquals("Sampo Cap Bambang", this.product.getProductName());
+        assertEquals("Sampo Cap Bambang", this.product.getName());
     }
 
     @Test
     void testGetProductQuantity() {
-        assertEquals(100, this.product.getProductQuantity());
+        assertEquals(100, this.product.getQuantity());
     }
 }

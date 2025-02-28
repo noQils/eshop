@@ -1,6 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
 import id.ac.ui.cs.advprog.eshop.model.Product;
+import id.ac.ui.cs.advprog.eshop.service.ObjectGetService;
+import id.ac.ui.cs.advprog.eshop.service.ObjectPostService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +18,9 @@ class ProductControllerTest {
     @Mock
     private Model model;
     @Mock
-    private ProductService service;
+    private ObjectGetService getService;
+    @Mock
+    private ObjectPostService postService;
     @InjectMocks
     ProductController productController;
     @BeforeEach
@@ -36,28 +40,28 @@ class ProductControllerTest {
     void testCreateProductPost() {
         // create a product
         Product product = new Product();
-        product.setProductId("eb558e9f-1c59-460e-8860-71af6af63j88");
-        product.setProductName("Laptop");
-        product.setProductQuantity(10);
+        product.setId("eb558e9f-1c59-460e-8860-71af6af63j88");
+        product.setName("Laptop");
+        product.setQuantity(10);
 
         // call the method
         String result = productController.createProductPost(product);
 
         // verify expected URL
-        assertEquals("redirect:list", result);
+        assertEquals("redirect:/product/list", result);
     }
 
     @Test
     void testProductListPage() {
         // create products
         Product product1 = new Product();
-        product1.setProductId("eb558e9f-1c59-460e-8860-71af6af63k23");
-        product1.setProductName("Laptop");
-        product1.setProductQuantity(5);
+        product1.setId("eb558e9f-1c59-460e-8860-71af6af63k23");
+        product1.setName("Laptop");
+        product1.setQuantity(5);
         Product product2 = new Product();
-        product2.setProductId("eb558e9f-1c59-460e-8860-71af6af63x98");
-        product2.setProductName("Phone");
-        product2.setProductQuantity(10);
+        product2.setId("eb558e9f-1c59-460e-8860-71af6af63x98");
+        product2.setName("Phone");
+        product2.setQuantity(10);
 
         // call the method
         String result = productController.productListPage(model);
@@ -70,12 +74,12 @@ class ProductControllerTest {
     void testEditProductPage() {
         // create a product
         Product product = new Product();
-        product.setProductId("eb558e9f-1c59-460e-8860-71af6af63h88");
-        product.setProductName("Laptop");
-        product.setProductQuantity(5);
+        product.setId("eb558e9f-1c59-460e-8860-71af6af63h88");
+        product.setName("Laptop");
+        product.setQuantity(5);
 
         // call the method
-        String result = productController.editProductPage(product.getProductId(), model);
+        String result = productController.editProductPage(product.getId(), model);
 
         // verify expected view name
         assertEquals("EditProduct", result);
@@ -86,16 +90,16 @@ class ProductControllerTest {
         // create products
         String productId = "eb558e9f-1c59-460e-8860-71af6af63gg3";
         Product existingProduct = new Product();
-        existingProduct.setProductId(productId);
-        existingProduct.setProductName("Old Laptop");
-        existingProduct.setProductQuantity(10);
+        existingProduct.setId(productId);
+        existingProduct.setName("Old Laptop");
+        existingProduct.setQuantity(10);
         Product updatedProduct = new Product();
-        updatedProduct.setProductId(productId);
-        updatedProduct.setProductName("New Laptop");
-        updatedProduct.setProductQuantity(5);
+        updatedProduct.setId(productId);
+        updatedProduct.setName("New Laptop");
+        updatedProduct.setQuantity(5);
 
         // call method
-        String result = productController.editProductPost(existingProduct.getProductId(), updatedProduct);
+        String result = productController.editProductPost(existingProduct.getId(), updatedProduct);
 
         // verify expected URL
         assertEquals("redirect:/product/list", result);
