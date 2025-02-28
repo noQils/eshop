@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class AbstractServiceImpl<T, R extends AbstractRepository<T>> implements ObjectPostService<T>, ObjectGetService<T> {
     protected final R repository;
 
-    public AbstractServiceImpl(R repository) {
+    protected AbstractServiceImpl(R repository) {
         this.repository = repository;
     }
 
