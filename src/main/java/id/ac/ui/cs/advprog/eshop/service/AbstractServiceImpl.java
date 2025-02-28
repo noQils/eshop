@@ -1,14 +1,12 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
 import id.ac.ui.cs.advprog.eshop.repository.AbstractRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
-public abstract class AbstractServiceImpl<T, Repository extends AbstractRepository<T>> implements ObjectCUDService<T>, ObjectReadService<T> {
-    protected final Repository repository;
+public abstract class AbstractServiceImpl<T, R extends AbstractRepository<T>> implements ObjectPostService<T>, ObjectGetService<T> {
+    protected final R repository;
 
-    @Autowired
-    public AbstractServiceImpl(Repository repository) {
+    public AbstractServiceImpl(R repository) {
         this.repository = repository;
     }
 
