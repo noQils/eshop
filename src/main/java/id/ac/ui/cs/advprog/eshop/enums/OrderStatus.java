@@ -1,9 +1,12 @@
 package id.ac.ui.cs.advprog.eshop.enums;
 
+import id.ac.ui.cs.advprog.eshop.model.Product;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
-public class OrderStatus {
+public enum OrderStatus {
     WAITING_PAYMENT("WAITING_PAYMENT"),
     FAILED("FAILED"),
     SUCCESS("SUCCESS"),
