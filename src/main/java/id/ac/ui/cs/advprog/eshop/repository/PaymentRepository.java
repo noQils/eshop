@@ -14,19 +14,15 @@ public class PaymentRepository {
     private List<Payment> paymentData = new ArrayList<>();
     private Map<String, Order> paymentOrder = new HashMap<>();
 
-    public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
+    public Payment save(Payment payment) {
         return null;
     }
 
-    public Payment setStatus(Payment payment, String status) {
+    public Payment findById(String id) {
         return null;
     }
 
-    public Payment getPayment(String id) {
-        return null;
-    }
-
-    public List<Payment> getAllPayments() {
+    public List<Payment> findAllPayments() {
         return null;
     }
 }
