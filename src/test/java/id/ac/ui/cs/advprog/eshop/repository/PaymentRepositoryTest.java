@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class PaymentRepositoryTest {
     PaymentRepository paymentRepository;
     List<Payment> payments;
-    List<Product> products;
 
     @BeforeEach
     public void setUp() {
@@ -40,23 +39,14 @@ public class PaymentRepositoryTest {
         Payment payment3 = new Payment("e334ef40-9eff-4da8-9487-8ee697ecbf1e",
                 "BankTransfer", paymentData);
         payments.add(payment3);
-
-        products = new ArrayList<>();
-        Product product1 = new Product();
-        product1.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product1.setName("Sampo Cap Bambang");
-        product1.setQuantity(2);
-        products.add(product1);
     }
 
     @Test
-    void testAddPayment() {
+    void testSaveCreate() {
         Payment payment = payments.get(1);
-        Order order = new Order("13652556-012a-4c07-b546-54eb1396d7892",
-                products, 1708560000L, "Safira Sudrajat");
-        Payment result = paymentRepository.addPayment(order, payment.getMethod(), payment.getPaymentData());
+        Payment result = paymentRepository.save(payment);
 
-        Payment findResult = paymentRepository.getPayment(payments.get(1).getId());
+        Payment findResult = paymentRepository.findById(payments.get(1).getId());
         assertEquals(payment.getId(), result.getId());
         assertEquals(payment.getId(), findResult.getId());
         assertEquals(payment.getMethod(), findResult.getMethod());
@@ -65,17 +55,15 @@ public class PaymentRepositoryTest {
     }
 
     @Test
-    void testAddPaymentUpdate() {
+    void testSaveUpdate() {
         Payment payment = payments.get(1);
-        Order order = new Order("13652556-012a-4c07-b546-54eb1396d7892",
-                products, 1708560000L, "Safira Sudrajat");
-        paymentRepository.addPayment(order, payment.getMethod(), payment.getPaymentData());
+        paymentRepository.save(payment);
 
         Payment newPayment = new Payment(payment.getId(), payment.getMethod(),
                 PaymentStatus.SUCCESS.getValue(), payment.getPaymentData());
-        Payment result = paymentRepository.addPayment(order, newPayment.getMethod(), newPayment.getPaymentData());
+        Payment result = paymentRepository.save(newPayment);
 
-        Payment findResult = paymentRepository.getPayment(payments.get(1).getId());
+        Payment findResult = paymentRepository.findById(payments.get(1).getId());
         assertEquals(payment.getId(), result.getId());
         assertEquals(payment.getId(), findResult.getId());
         assertEquals(payment.getMethod(), findResult.getMethod());
@@ -84,14 +72,12 @@ public class PaymentRepositoryTest {
     }
 
     @Test
-    void testGetPaymentIfIdFound() {
+    void testFindPaymentIfIdFound() {
         for (Payment payment : payments) {
-            Order order = new Order("13652556-012a-4c07-b546-54eb1396d7892",
-                    products, 1708560000L, "Safira Sudrajat");
-            paymentRepository.addPayment(order, payment.getMethod(), payment.getPaymentData());
+            paymentRepository.save(payment);
         }
 
-        Payment findResult = paymentRepository.getPayment(payments.get(1).getId());
+        Payment findResult = paymentRepository.findById(payments.get(1).getId());
         assertEquals(payments.get(1).getId(), findResult.getId());
         assertEquals(payments.get(1).getMethod(), findResult.getMethod());
         assertEquals(payments.get(1).getPaymentData(), findResult.getPaymentData());
@@ -99,42 +85,22 @@ public class PaymentRepositoryTest {
     }
 
     @Test
-    void testGetPaymentIfIdNotFound() {
+    void testFindPaymentIfIdNotFound() {
         for (Payment payment : payments) {
-            Order order = new Order("13652556-012a-4c07-b546-54eb1396d7892",
-                    products, 1708560000L, "Safira Sudrajat");
-            paymentRepository.addPayment(order, payment.getMethod(), payment.getPaymentData());
+            paymentRepository.save(payment);
         }
 
-        Payment findResult = paymentRepository.getPayment("zzcz");
+        Payment findResult = paymentRepository.findById("zzcz");
         assertNull(findResult);
     }
 
     @Test
-    void testGetAllPayments() {
+    void testFindAllPayments() {
         for (Payment payment : payments) {
-            Order order = new Order("13652556-012a-4c07-b546-54eb1396d7892",
-                    products, 1708560000L, "Safira Sudrajat");
-            paymentRepository.addPayment(order, payment.getMethod(), payment.getPaymentData());
+            paymentRepository.save(payment);
         }
 
-        List<Payment> paymentList = paymentRepository.getAllPayments();
+        List<Payment> paymentList = paymentRepository.findAllPayments();
         assertEquals(3, paymentList.size());
-    }
-
-    @Test
-    void testSetPaymentStatusToSuccess() {
-        Payment payment = payments.get(1);
-        Payment result = paymentRepository.setStatus(payment, PaymentStatus.SUCCESS.getValue());
-
-        assertEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
-    }
-
-    @Test
-    void testSetPaymentStatusToRejected() {
-        Payment payment = payments.get(2);
-        Payment result = paymentRepository.setStatus(payment, PaymentStatus.REJECTED.getValue());
-
-        assertEquals(PaymentStatus.REJECTED.getValue(), result.getStatus());
     }
 }
