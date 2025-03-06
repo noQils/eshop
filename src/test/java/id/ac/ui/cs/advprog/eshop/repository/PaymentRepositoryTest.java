@@ -106,7 +106,7 @@ public class PaymentRepositoryTest {
             paymentRepository.addPayment(order, payment.getMethod(), payment.getPaymentData());
         }
 
-        Order findResult = paymentRepository.getPayment("zzcz");
+        Payment findResult = paymentRepository.getPayment("zzcz");
         assertNull(findResult);
     }
 
