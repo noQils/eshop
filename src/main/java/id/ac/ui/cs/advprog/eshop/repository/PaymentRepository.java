@@ -15,6 +15,10 @@ public class PaymentRepository {
     private Map<String, Order> paymentOrder = new HashMap<>();
 
     public Payment save(Payment payment) {
+        if (payment == null) {
+            return null;
+        }
+
         int i = 0;
         for (Payment savedPayment : paymentData) {
             if (savedPayment.getId().equals(payment.getId())) {
