@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
@@ -37,13 +39,13 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         Order order = paymentRepository.findOrderByPayment(payment.getId());
-        if (status.equals("SUCCESS")) {
-            payment.setStatus("SUCCESS");
-            orderService.updateStatus(order.getId(), "SUCCESS");
+        if (status.equals(PaymentStatus.SUCCESS.getValue())) {
+            payment.setStatus(PaymentStatus.SUCCESS.getValue());
+            orderService.updateStatus(order.getId(), OrderStatus.SUCCESS.getValue());
             return payment;
-        } else if (status.equals("REJECTED")) {
-            payment.setStatus("REJECTED");
-            orderService.updateStatus(order.getId(), "FAILED");
+        } else if (status.equals(PaymentStatus.REJECTED.getValue())) {
+            payment.setStatus(PaymentStatus.REJECTED.getValue());
+            orderService.updateStatus(order.getId(), OrderStatus.FAILED.getValue());
             return payment;
         } else {
             throw new IllegalArgumentException();
