@@ -212,18 +212,18 @@ public class PaymentTest {
     void testBankTransferWithoutBankNameKey() {
         this.bankTransferPaymentData.remove("bankName");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", this.bankTransferPaymentData);
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
     void testBankTransferWithoutRefCodeKey() {
         this.bankTransferPaymentData.remove("referenceCode");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", this.bankTransferPaymentData);
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
