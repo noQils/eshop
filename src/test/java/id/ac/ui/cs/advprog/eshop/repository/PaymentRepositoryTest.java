@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
@@ -29,15 +30,15 @@ public class PaymentRepositoryTest {
 
         payments = new ArrayList<>();
         Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", paymentData);
+                PaymentMethod.BankTransfer.getValue(), paymentData);
         payments.add(payment1);
 
         Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af385fb078",
-                "BankTransfer", paymentData);
+                PaymentMethod.BankTransfer.getValue(), paymentData);
         payments.add(payment2);
 
         Payment payment3 = new Payment("e334ef40-9eff-4da8-9487-8ee697ecbf1e",
-                "BankTransfer", paymentData);
+                PaymentMethod.BankTransfer.getValue(), paymentData);
         payments.add(payment3);
     }
 
@@ -60,7 +61,7 @@ public class PaymentRepositoryTest {
         paymentRepository.save(payment);
 
         Payment newPayment = new Payment(payment.getId(), payment.getMethod(),
-                "SUCCESS", payment.getPaymentData());
+                PaymentStatus.SUCCESS.getValue(), payment.getPaymentData());
         Payment result = paymentRepository.save(newPayment);
 
         Payment findResult = paymentRepository.findById(payments.get(1).getId());
@@ -68,7 +69,7 @@ public class PaymentRepositoryTest {
         assertEquals(payment.getId(), findResult.getId());
         assertEquals(payment.getMethod(), findResult.getMethod());
         assertEquals(payment.getPaymentData(), findResult.getPaymentData());
-        assertEquals("SUCCESS", findResult.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), findResult.getStatus());
     }
 
     @Test
