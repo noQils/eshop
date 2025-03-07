@@ -47,7 +47,8 @@ public class Payment {
         boolean validationStatus = false;
         if (method.equals(PaymentMethod.VoucherCode.getValue())) {
             validationStatus = validateVoucherCode(paymentData);
-        } else if (method.equals(PaymentMethod.BankTransfer.getValue())) {
+        }
+        if (method.equals(PaymentMethod.BankTransfer.getValue())) {
             validationStatus = validateBankTransfer(paymentData);
         }
 
