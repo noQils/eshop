@@ -167,4 +167,42 @@ public class PaymentRepositoryTest {
         List<Payment> paymentList = paymentRepository.findAllPayments();
         assertEquals(3, paymentList.size());
     }
+
+    @Test
+    void testFindOrderByPaymentIdIfIdValid() {
+        for (int i = 0 ; i < payments.size() ; i++) {
+            Payment payment = payments.get(i);
+            Order order = orders.get(i);
+            paymentRepository.save(payment, order);
+        }
+
+        Order order = paymentRepository.findOrderByPayment(payments.get(1).getId());
+        assertEquals(orders.get(1).getId(), order.getId());
+        assertEquals(orders.get(1).getAuthor(), order.getAuthor());
+        assertEquals(orders.get(1).getStatus(), order.getStatus());
+    }
+
+    @Test
+    void testFindOrderByPaymentIdIfIdNotValid() {
+        for (int i = 0 ; i < payments.size() ; i++) {
+            Payment payment = payments.get(i);
+            Order order = orders.get(i);
+            paymentRepository.save(payment, order);
+        }
+
+        Order order = paymentRepository.findOrderByPayment("test");
+        assertNull(order);
+    }
+
+    @Test
+    void testFindOrderByPaymentIdIfNull() {
+        for (int i = 0 ; i < payments.size() ; i++) {
+            Payment payment = payments.get(i);
+            Order order = orders.get(i);
+            paymentRepository.save(payment, order);
+        }
+
+        Order order = paymentRepository.findOrderByPayment(null);
+        assertNull(order);
+    }
 }
