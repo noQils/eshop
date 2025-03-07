@@ -48,4 +48,13 @@ public class PaymentRepository {
     public List<Payment> findAllPayments() {
         return paymentData;
     }
+
+    public Order findOrderByPayment(String paymentId) {
+        for (String id : paymentOrder.keySet()) {
+            if (id.equals(paymentId)) {
+                return paymentOrder.get(id);
+            }
+        }
+        return null;
+    }
 }
