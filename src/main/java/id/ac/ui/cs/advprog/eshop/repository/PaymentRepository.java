@@ -11,11 +11,13 @@ import java.util.Map;
 
 @Repository
 public class PaymentRepository {
-    private List<Payment> paymentData = new ArrayList<>();
-    private Map<String, Order> paymentOrder = new HashMap<>();
+    private final List<Payment> paymentData = new ArrayList<>();
+    private final Map<String, Order> paymentOrder = new HashMap<>();
 
-    public Payment save(Payment payment) {
+    public Payment save(Payment payment, Order order) {
         if (payment == null) {
+            return null;
+        } else if (order == null) {
             return null;
         }
 
@@ -24,11 +26,13 @@ public class PaymentRepository {
             if (savedPayment.getId().equals(payment.getId())) {
                 paymentData.remove(i);
                 paymentData.add(i, payment);
+                paymentOrder.put(payment.getId(), order);
                 return payment;
             }
             i += 1;
         }
         paymentData.add(payment);
+        paymentOrder.put(payment.getId(), order);
         return payment;
     }
 
