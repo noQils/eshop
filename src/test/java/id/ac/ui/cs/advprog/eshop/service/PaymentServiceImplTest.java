@@ -1,5 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.model.Order;
@@ -39,15 +42,15 @@ class PaymentServiceImplTest {
 
         payments = new ArrayList<>();
         Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", paymentData);
+                PaymentMethod.BankTransfer.getValue(), paymentData);
         payments.add(payment1);
 
         Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af385fb078",
-                "BankTransfer", paymentData);
+                PaymentMethod.BankTransfer.getValue(), paymentData);
         payments.add(payment2);
 
         Payment payment3 = new Payment("e334ef40-9eff-4da8-9487-8ee697ecbf1e",
-                "BankTransfer", paymentData);
+                PaymentMethod.BankTransfer.getValue(), paymentData);
         payments.add(payment3);
 
         List<Product> products = new ArrayList<>();
@@ -78,11 +81,11 @@ class PaymentServiceImplTest {
         when(paymentRepository.findOrderByPayment(payment.getId())).thenReturn(order);
         when(orderService.updateStatus(anyString(), anyString())).thenReturn(order);
 
-        Payment result = paymentService.setStatus(payment, "SUCCESS");
+        Payment result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
 
         assertEquals(payment.getId(), result.getId());
-        assertEquals("SUCCESS", result.getStatus());
-        verify(orderService, times(1)).updateStatus(order.getId(), "SUCCESS");
+        assertEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
+        verify(orderService, times(1)).updateStatus(order.getId(), OrderStatus.SUCCESS.getValue());
     }
 
     @Test
@@ -92,11 +95,11 @@ class PaymentServiceImplTest {
         when(paymentRepository.findOrderByPayment(payment.getId())).thenReturn(order);
         when(orderService.updateStatus(anyString(), anyString())).thenReturn(order);
 
-        Payment result = paymentService.setStatus(payment, "REJECTED");
+        Payment result = paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
 
         assertEquals(payment.getId(), result.getId());
-        assertEquals("REJECTED", result.getStatus());
-        verify(orderService, times(1)).updateStatus(order.getId(), "FAILED");
+        assertEquals(PaymentStatus.REJECTED.getValue(), result.getStatus());
+        verify(orderService, times(1)).updateStatus(order.getId(), OrderStatus.FAILED.getValue());
     }
 
     @Test
@@ -114,7 +117,7 @@ class PaymentServiceImplTest {
         Payment payment = null;
 
         assertThrows(NoSuchElementException.class,
-                () -> paymentService.setStatus(payment, "SUCCESS"));
+                () -> paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue()));
     }
 
     @Test
