@@ -84,44 +84,44 @@ public class PaymentTest {
     @Test
     void testValidVoucherCode() {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "VoucherCode", this.voucherPaymentData);
+                PaymentMethod.VoucherCode.getValue(), this.voucherPaymentData);
 
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
     void testVoucherCodeNotStartedWithESHOP() {
         this.voucherPaymentData.put("voucherCode", "BREAD1234ABC5678");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "VoucherCode", this.voucherPaymentData);
+                PaymentMethod.VoucherCode.getValue(), this.voucherPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
     void testVoucherCodeNot16Characters() {
         this.voucherPaymentData.put("voucherCode", "ESHOP1234ABC567");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "VoucherCode", this.voucherPaymentData);
+                PaymentMethod.VoucherCode.getValue(), this.voucherPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
     void testVoucherCodeWithout8NumericCharacters() {
         this.voucherPaymentData.put("voucherCode", "ESHOP12H4ABC5678");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "VoucherCode", this.voucherPaymentData);
+                PaymentMethod.VoucherCode.getValue(), this.voucherPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
     void testVoucherWithEmptyVoucherCode() {
         this.voucherPaymentData.put("voucherCode", "");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "VoucherCode", this.voucherPaymentData);
+                PaymentMethod.VoucherCode.getValue(), this.voucherPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 }
