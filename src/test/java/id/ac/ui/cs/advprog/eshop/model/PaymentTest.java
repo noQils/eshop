@@ -147,27 +147,27 @@ public class PaymentTest {
     @Test
     void testValidBankTransfer() {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", this.bankTransferPaymentData);
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
     void testBankTransferWithEmptyBankName() {
         this.bankTransferPaymentData.put("bankName", "");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", this.bankTransferPaymentData);
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
     void testBankTransferWithEmptyRefCode() {
         this.bankTransferPaymentData.put("referenceCode", "");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", this.bankTransferPaymentData);
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
@@ -175,27 +175,27 @@ public class PaymentTest {
         this.bankTransferPaymentData.put("bankName", "");
         this.bankTransferPaymentData.put("referenceCode", "");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", this.bankTransferPaymentData);
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
     void testBankTransferWithNullBankName() {
         this.bankTransferPaymentData.put("bankName", null);
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", this.bankTransferPaymentData);
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
     void testBankTransferWithNullRefCode() {
         this.bankTransferPaymentData.put("referenceCode", null);
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", this.bankTransferPaymentData);
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
@@ -203,9 +203,9 @@ public class PaymentTest {
         this.bankTransferPaymentData.put("bankName", null);
         this.bankTransferPaymentData.put("referenceCode", null);
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", this.bankTransferPaymentData);
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
@@ -213,8 +213,8 @@ public class PaymentTest {
         this.bankTransferPaymentData.clear();
         this.bankTransferPaymentData.put("randomKey", "hello");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "BankTransfer", this.bankTransferPaymentData);
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 }
