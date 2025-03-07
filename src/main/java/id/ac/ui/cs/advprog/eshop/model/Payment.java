@@ -45,13 +45,13 @@ public class Payment {
         }
 
         boolean validationStatus = false;
-        if (method.equals("VoucherCode")) {
+        if (method.equals(PaymentMethod.VoucherCode.getValue())) {
             validationStatus = validateVoucherCode(paymentData);
         }
         if (validationStatus) {
-            this.setStatus("SUCCESS");
+            this.setStatus(PaymentStatus.SUCCESS.getValue());
         } else {
-            this.setStatus("REJECTED");
+            this.setStatus(PaymentStatus.REJECTED.getValue());
         }
     }
 
