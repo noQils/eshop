@@ -45,15 +45,13 @@ public class PaymentTest {
     @Test
     void testCreatePayment() {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
+                PaymentMethod.VoucherCode.getValue(), this.voucherPaymentData);
 
-        assertSame(this.bankTransferPaymentData, payment.getPaymentData());
-        assertTrue(payment.getPaymentData().containsKey("bankName"));
-        assertTrue(payment.getPaymentData().containsKey("referenceCode"));
-        assertEquals("BCA", payment.getPaymentData().get("bankName"));
-        assertEquals("REF-20240306-AB123XYZ", payment.getPaymentData().get("referenceCode"));
+        assertSame(this.voucherPaymentData, payment.getPaymentData());
+        assertTrue(payment.getPaymentData().containsKey("voucherCode"));
+        assertEquals("ESHOP1234ABC5678", payment.getPaymentData().get("voucherCode"));
         assertEquals("13652556-012a-4c07-b546-54eb1396d79b", payment.getId());
-        assertEquals(PaymentMethod.BankTransfer.getValue(), payment.getMethod());
+        assertEquals(PaymentMethod.VoucherCode.getValue(), payment.getMethod());
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
@@ -119,8 +117,8 @@ public class PaymentTest {
     }
 
     @Test
-    void testVoucherWithNoVoucherCode() {
-        this.voucherPaymentData.clear();
+    void testVoucherWithEmptyVoucherCode() {
+        this.voucherPaymentData.put("voucherCode", "");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
                 "VoucherCode", this.voucherPaymentData);
 
