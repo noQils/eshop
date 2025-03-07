@@ -133,4 +133,14 @@ public class PaymentTest {
 
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
+
+    @Test
+    void testVoucherWithoutVoucherCodeButMapNotEmpty() {
+        this.voucherPaymentData.clear();
+        this.voucherPaymentData.put("randomKey", "hello");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
+                "VoucherCode", this.voucherPaymentData);
+
+        assertEquals("REJECTED", payment.getStatus());
+    }
 }
