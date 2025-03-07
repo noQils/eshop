@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -84,5 +85,45 @@ class OrderTest {
                 this.products, 1708560000L, "Safira Sudrajat");
 
         assertThrows(IllegalArgumentException.class, () -> order.setStatus("MEOW"));
+    }
+
+    @Test
+    void testOrderBuilder() {
+        List<Product> products = List.of(new Product());
+        Order order = Order.builder()
+                .id("13652556-012a-4c07-b546-54eb1396d79b")
+                .products(products)
+                .orderTime(1708560000L)
+                .author("Safira Sudrajat")
+                .status(OrderStatus.WAITING_PAYMENT.getValue())
+                .build();
+
+        assertEquals("13652556-012a-4c07-b546-54eb1396d79b", order.getId());
+        assertEquals(products, order.getProducts());
+        assertEquals(1708560000L, order.getOrderTime());
+        assertEquals("Safira Sudrajat", order.getAuthor());
+        assertEquals(OrderStatus.WAITING_PAYMENT.getValue(), order.getStatus());
+    }
+
+    @Test
+    void testOrderConstructorDefaultStatus() {
+        List<Product> products = List.of(new Product());
+        Order order = new Order("13652556-012a-4c07-b546-54eb1396d79b", products, 1708560000L, "Safira Sudrajat");
+
+        assertEquals(OrderStatus.WAITING_PAYMENT.getValue(), order.getStatus());
+    }
+
+    @Test
+    void testOrderConstructorThrowsExceptionForEmptyProducts() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Order("13652556-012a-4c07-b546-54eb1396d79b", Collections.emptyList(), 1708560000L, "Safira Sudrajat"));
+    }
+
+    @Test
+    void testOrderToString() {
+        String orderString = Order.builder()
+                .toString();
+
+        assertNotNull(orderString);
     }
 }
