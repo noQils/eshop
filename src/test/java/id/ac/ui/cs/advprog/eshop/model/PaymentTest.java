@@ -43,7 +43,7 @@ public class PaymentTest {
     }
 
     @Test
-    void testCreatePaymentDefaultStatus() {
+    void testCreatePayment() {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
                 PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
 
@@ -54,23 +54,16 @@ public class PaymentTest {
         assertEquals("REF-20240306-AB123XYZ", payment.getPaymentData().get("referenceCode"));
         assertEquals("13652556-012a-4c07-b546-54eb1396d79b", payment.getId());
         assertEquals(PaymentMethod.BankTransfer.getValue(), payment.getMethod());
-        assertEquals(PaymentStatus.PENDING.getValue(), payment.getStatus());
-    }
-
-    @Test
-    void testCreatePaymentSuccessStatus() {
-        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                PaymentMethod.BankTransfer.getValue(), PaymentStatus.SUCCESS.getValue(), this.bankTransferPaymentData);
-
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
-    void testCreatePaymentInvalidStatus() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                    PaymentMethod.BankTransfer.getValue(), "INVALID_STATUS", this.bankTransferPaymentData);
-        });
+    void testSetStatusToSuccess() {
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
+                PaymentMethod.BankTransfer.getValue(), this.bankTransferPaymentData);
+
+        payment.setStatus(PaymentStatus.SUCCESS.getValue());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
