@@ -209,7 +209,25 @@ public class PaymentTest {
     }
 
     @Test
-    void testBankTransferWithoutBankDataButMapNotEmpty() {
+    void testBankTransferWithoutBankNameKey() {
+        this.bankTransferPaymentData.remove("bankName");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
+                "BankTransfer", this.bankTransferPaymentData);
+
+        assertEquals("REJECTED", payment.getStatus());
+    }
+
+    @Test
+    void testBankTransferWithoutRefCodeKey() {
+        this.bankTransferPaymentData.remove("referenceCode");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
+                "BankTransfer", this.bankTransferPaymentData);
+
+        assertEquals("REJECTED", payment.getStatus());
+    }
+
+    @Test
+    void testBankTransferWithoutBankNameButMapNotEmpty() {
         this.bankTransferPaymentData.clear();
         this.bankTransferPaymentData.put("randomKey", "hello");
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
